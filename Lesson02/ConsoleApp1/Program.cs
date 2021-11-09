@@ -19,7 +19,18 @@ namespace ConsoleApp1
              * through command line arguments
              */
 
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string path;
+
+            // Реализовать обработку исключений в методе Main 
+            try
+            {
+                path = getInitialPath();
+            }
+            catch
+            {
+                path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                Console.WriteLine($"No start directory is specified, the default is {path}");
+            }
 
             try
             {
@@ -33,7 +44,7 @@ namespace ConsoleApp1
                            };
 
                 // Перебор коллекции в цикле foreach
-                Console.WriteLine("Directories started with 'P':");
+                Console.WriteLine("\nDirectories started with 'P':");
 
                 foreach (var di in dirs)
                 {
@@ -92,6 +103,14 @@ namespace ConsoleApp1
             {
                 Console.WriteLine($"{e.Message}");
             }
+        }
+
+        /// <summary>
+		/// test method to throw an exception
+		/// </summary>
+        private static string getInitialPath()
+        {
+            throw new NotImplementedException();
         }
     }
 }
