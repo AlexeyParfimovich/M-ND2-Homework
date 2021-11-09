@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ConsoleApp1
 {
@@ -19,24 +21,32 @@ namespace ConsoleApp1
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            Console.WriteLine($"List all subdirectories in {path}");
+            Console.WriteLine($"List all subdirectories in {path}:");
 
-            try 
-            { 
-                var diList = (new DirectoryInfo(path)).EnumerateDirectories("*", SearchOption.TopDirectoryOnly);
+            try
+            {
+                var dirs = from dir in (new DirectoryInfo(path)).EnumerateDirectories("*", SearchOption.TopDirectoryOnly)
+                           where dir.Exists
+                           select new
+                           {
+                               name = dir.Name,
+                               root = dir.Root,
+                               parent = dir.Parent
+                           };
 
-                foreach (var di in diList)
+                foreach (var di in dirs)
                 {
-                    Console.WriteLine($"{di.FullName}");
+                    Console.WriteLine($"{di.name}");
                 }
-
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 Console.WriteLine($"{e.Message}");
             }
+        
+
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
         }
     }
 }
