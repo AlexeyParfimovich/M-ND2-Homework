@@ -24,7 +24,7 @@ namespace ConsoleApp1
             // Реализовать обработку исключений в методе Main 
             try
             {
-                path = getInitialPath();
+                path = GetInitialPath();
             }
             catch
             {
@@ -108,7 +108,7 @@ namespace ConsoleApp1
         /// <summary>
 		/// test method to throw an exception
 		/// </summary>
-        private static string getInitialPath()
+        private static string GetInitialPath()
         {
             throw new NotImplementedException();
         }
