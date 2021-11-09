@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Text.Json;
 
 namespace ConsoleApp1
 {
@@ -30,14 +30,21 @@ namespace ConsoleApp1
                            select new
                            {
                                name = dir.Name,
-                               root = dir.Root,
-                               parent = dir.Parent
+                               root = dir.Root.Name,
+                               parent = dir.Parent.Name
                            };
 
                 foreach (var di in dirs)
                 {
                     Console.WriteLine($"{di.name}");
                 }
+
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+
+                Console.WriteLine("Objects serialized to JSON:");
+                Console.WriteLine($"{System.Text.Json.JsonSerializer.Serialize(dirs, new JsonSerializerOptions { WriteIndented = true })}");
             }
             catch(Exception e)
             {
