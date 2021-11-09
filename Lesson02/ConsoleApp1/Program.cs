@@ -21,8 +21,6 @@ namespace ConsoleApp1
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            Console.WriteLine($"List all subdirectories in {path}:");
-
             try
             {
                 var dirs = from dir in (new DirectoryInfo(path)).EnumerateDirectories("*", SearchOption.TopDirectoryOnly)
@@ -34,26 +32,66 @@ namespace ConsoleApp1
                                parent = dir.Parent.Name
                            };
 
+                // Перебор коллекции в цикле foreach
+                Console.WriteLine("Directories started with 'P':");
+
                 foreach (var di in dirs)
                 {
-                    Console.WriteLine($"{di.name}");
+                    if (di.name.StartsWith('P'))
+                    {
+                        Console.WriteLine($"{di.root}{di.parent}\\{di.name}");
+                    }
                 }
-
 
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
 
-                Console.WriteLine("Objects serialized to JSON:");
+                // Перебор коллекции в цикле for
+                Console.WriteLine("\nDirectories started with 'M':");
+
+                for (var i = 0; i < dirs.Count(); i++)
+                {
+                    var di = dirs.ElementAt(i);
+
+                    if (di.name.StartsWith('M'))
+                    {
+                        Console.WriteLine($"{di.root}{di.parent}\\{di.name}");
+                    }
+                }
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+
+                // Перебор коллекции в цикле while
+                Console.WriteLine("\nDirectories started with 'V':");
+
+                int position = 0;
+                while (position < dirs.Count())
+                {
+                    var di = dirs.ElementAt(position);
+
+                    if (di.name.StartsWith('V'))
+                    {
+                        Console.WriteLine($"{di.root}{di.parent}\\{di.name}");
+                    }
+
+                    position++;
+                }
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+
+                // Сериализация и вывод коллекции как JSON
+                Console.WriteLine("\nObjects serialized to JSON:");
                 Console.WriteLine($"{System.Text.Json.JsonSerializer.Serialize(dirs, new JsonSerializerOptions { WriteIndented = true })}");
+
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
             }
             catch(Exception e)
             {
                 Console.WriteLine($"{e.Message}");
             }
-        
-
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
         }
     }
 }
