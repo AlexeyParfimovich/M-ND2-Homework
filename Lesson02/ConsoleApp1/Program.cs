@@ -8,9 +8,9 @@ namespace ConsoleApp1
     class Program
     {
         /// <summary>
-		/// App starting
-		/// </summary>
-		/// <param name="args">Command line args to start.</param>
+        /// App starting
+        /// </summary>
+        /// <param name="args">Command line args to start.</param>
         static void Main(string[] args)
         {
             /*TODO: 
@@ -106,8 +106,8 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-		/// test method to throw an exception
-		/// </summary>
+        /// test method to throw an exception
+        /// </summary>
         private static string GetInitialPath()
         {
             throw new NotImplementedException();
